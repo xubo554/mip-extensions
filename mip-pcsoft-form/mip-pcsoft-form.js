@@ -7,18 +7,19 @@
 */
 define(function (require) {
     var $ = require('zepto');
+    var util = require('util');
+    var platform = util.platform;
     var customElem = require('customElement').create();
     function init() {
-        var ua = navigator.userAgent.toLowerCase();
-        $('#basic-addon').click(function (e) {
+        $('.basic-addon').click(function (e) {
                 e.stopPropagation();
                 e.preventDefault();
-                var keyword = $('#keyword').val();
+                var keyword = $('.keyword').val();
                 if (keyword === '') {
                     alert('请输入你要找的软件');
                 }
                 else {
-                    if (/iphone|ipad|ipod/.test(ua)) {
+                    if (platform.isIos()) {
                         window.location.href = '/search/iossoft/' + keyword + '.html';
                     }
                     else {
@@ -26,13 +27,13 @@ define(function (require) {
                     }
                 }
             });
-        $('#keyword').bind('search', function () {
-                var keyword = $('#keyword').val();
+        $('.keyword').bind('search', function () {
+                var keyword = $('.keyword').val();
                 if (keyword === '') {
                     alert('请输入你要找的软件');
                 }
                 else {
-                    if (/iphone|ipad|ipod/.test(ua)) {
+                    if (platform.isIos()) {
                         window.location.href = '/search/iossoft/' + keyword + '.html';
                     }
                     else {
